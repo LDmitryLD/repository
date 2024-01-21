@@ -61,6 +61,7 @@ type UpdateResponse struct {
 
 // swagger:parameters DeleteRequest
 type DeleteRequest struct {
+	// В нашем случае название таблицы - users
 	// in:body
 	Body controller.DeleteRequest
 }

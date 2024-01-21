@@ -15,17 +15,13 @@ type CreateRequest struct {
 }
 
 type CreateResponse struct {
-	Success bool  `json:"success"`
-	Error   error `json:"error"`
+	Success bool   `json:"success"`
+	Error   string `json:"error"`
 }
-
-// type GetByIDRequest struct {
-// 	ID int `json:"id"`
-// }
 
 type GetByIDResponse struct {
 	Success bool        `json:"success"`
-	Error   error       `json:"error"`
+	Error   string      `json:"error"`
 	User    models.User `json:"user"`
 }
 
@@ -39,8 +35,8 @@ type UpdateRequest struct {
 }
 
 type UpdateResponse struct {
-	Success bool  `json:"success"`
-	Error   error `json:"error"`
+	Success bool   `json:"success"`
+	Error   string `json:"error"`
 }
 
 type DeleteRequest struct {
@@ -49,8 +45,8 @@ type DeleteRequest struct {
 }
 
 type DeleteResponse struct {
-	Success bool  `json:"success"`
-	Error   error `json:"error"`
+	Success bool   `json:"success"`
+	Error   string `json:"error"`
 }
 
 type ListRequest struct {
@@ -59,8 +55,7 @@ type ListRequest struct {
 }
 
 type ListResponse struct {
-	Success bool  `json:"success"`
-	Error   error `json:"error"`
-	// Users   []models.UserDTO `json:"users"`
-	Users []models.User `json:"users"`
+	Success bool          `json:"success"`
+	Error   string        `json:"error"`
+	Users   []models.User `json:"users"`
 }

@@ -121,5 +121,4 @@ func TestUserService_List(t *testing.T) {
 	out := userService.List(context.Background(), testIn)
 
 	assert.Equal(t, expect, out)
-
 }

@@ -5,6 +5,7 @@ import (
 	"projects/LDmitryLD/repository/app/internal/models"
 )
 
+//go:generate go run github.com/vektra/mockery/v2@v2.35.4 --name=Userer
 type Userer interface {
 	Create(ctx context.Context, in CreateIn) CreateOut
 	GetByID(ctx context.Context, in GetByIDIn) GetByIDOut

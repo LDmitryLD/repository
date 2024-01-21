@@ -10,10 +10,10 @@ import (
 )
 
 type UserStorage struct {
-	adapter *adapter.SQLAdapter
+	adapter adapter.SQLAdapterer
 }
 
-func NewUserStorage(sqlAdapter *adapter.SQLAdapter) *UserStorage {
+func NewUserStorage(sqlAdapter adapter.SQLAdapterer) *UserStorage {
 	return &UserStorage{adapter: sqlAdapter}
 }
 
@@ -21,15 +21,11 @@ func (s *UserStorage) Create(ctx context.Context, user models.UserDTO) error {
 	return s.adapter.Create(ctx, &user)
 }
 
-// изменил UserDTO на User
 func (s *UserStorage) GetByID(ctx context.Context, id int) (models.User, error) {
-	// var dto models.UserDTO
-	// var list []models.UserDTO
-
-	var dto models.User
+	var user models.User
 	var list []models.User
 
-	err := s.adapter.List(ctx, &list, &dto, adapter.Condition{
+	err := s.adapter.List(ctx, &list, &user, adapter.Condition{
 		Equal: map[string]interface{}{
 			"id": id,
 		},
@@ -58,20 +54,11 @@ func (s *UserStorage) Delete(ctx context.Context, tableName string, id int) erro
 	return s.adapter.Delete(ctx, tableName, id)
 }
 
-// изменил UserDTO на User
 func (s *UserStorage) List(ctx context.Context, c adapter.Condition) ([]models.User, error) {
-	// var dto models.UserDTO
-	// var list []models.UserDTO
-
-	var dto models.User
+	var user models.User
 	var list []models.User
 
-	err := s.adapter.List(ctx, &list, &dto, c)
-	if err != nil {
-		return nil, err
-	}
+	err := s.adapter.List(ctx, &list, &user, c)
 
-	// пройтись циклом по массиму и удалять специальной функцией пользователей которые помечены как удалённые?
-
-	return list, nil
+	return list, err
 }

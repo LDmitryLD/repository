@@ -36,6 +36,7 @@ func (u *User) Craete(w http.ResponseWriter, r *http.Request) {
 	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
 		log.Println(LogErrDecodeReq)
 		u.ErrorBadRequest(w, err)
+		return
 	}
 
 	out := u.service.Create(r.Context(), service.CreateIn{
@@ -48,13 +49,13 @@ func (u *User) Craete(w http.ResponseWriter, r *http.Request) {
 
 	resp := CreateResponse{
 		Success: true,
-		Error:   nil,
+		Error:   "",
 	}
 
 	if out.Error != nil {
 		resp = CreateResponse{
 			Success: false,
-			Error:   out.Error,
+			Error:   out.Error.Error(),
 		}
 	}
 
@@ -62,17 +63,12 @@ func (u *User) Craete(w http.ResponseWriter, r *http.Request) {
 }
 
 func (u *User) GetByID(w http.ResponseWriter, r *http.Request) {
-	// var req GetByIDRequest
-	// if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
-	// 	log.Println(LogErrDecodeReq)
-	// 	u.ErrorBadRequest(w, err)
-	// }
-
 	paramID := chi.URLParam(r, "id")
 
 	id, err := strconv.ParseInt(paramID, 0, 64)
 	if err != nil {
 		u.ErrorBadRequest(w, err)
+		return
 	}
 
 	out := u.service.GetByID(r.Context(), service.GetByIDIn{
@@ -80,8 +76,7 @@ func (u *User) GetByID(w http.ResponseWriter, r *http.Request) {
 	})
 
 	if out.Error != nil {
-		log.Println("Ошибка:", out.Error.Error())
-		u.OutputJSON(w, GetByIDResponse{Success: false, Error: out.Error})
+		u.OutputJSON(w, GetByIDResponse{Success: false, Error: out.Error.Error()})
 		return
 	}
 
@@ -93,6 +88,7 @@ func (u *User) Update(w http.ResponseWriter, r *http.Request) {
 	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
 		log.Println(LogErrDecodeReq)
 		u.ErrorBadRequest(w, err)
+		return
 	}
 
 	out := u.service.Update(r.Context(), service.UpdateIn{
@@ -105,11 +101,11 @@ func (u *User) Update(w http.ResponseWriter, r *http.Request) {
 	})
 
 	if out.Error != nil {
-		u.OutputJSON(w, UpdateResponse{Success: false, Error: out.Error})
+		u.OutputJSON(w, UpdateResponse{Success: false, Error: out.Error.Error()})
 		return
 	}
 
-	u.OutputJSON(w, UpdateResponse{Success: true, Error: nil})
+	u.OutputJSON(w, UpdateResponse{Success: true, Error: ""})
 }
 
 func (u *User) Delete(w http.ResponseWriter, r *http.Request) {
@@ -117,6 +113,7 @@ func (u *User) Delete(w http.ResponseWriter, r *http.Request) {
 	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
 		log.Println(LogErrDecodeReq)
 		u.ErrorBadRequest(w, err)
+		return
 	}
 
 	out := u.service.Delete(r.Context(), service.DeleteIn{
@@ -125,11 +122,11 @@ func (u *User) Delete(w http.ResponseWriter, r *http.Request) {
 	})
 
 	if out.Error != nil {
-		u.OutputJSON(w, DeleteResponse{Success: false, Error: out.Error})
+		u.OutputJSON(w, DeleteResponse{Success: false, Error: out.Error.Error()})
 		return
 	}
 
-	u.OutputJSON(w, DeleteResponse{Success: true, Error: nil})
+	u.OutputJSON(w, DeleteResponse{Success: true, Error: ""})
 }
 
 func (u *User) List(w http.ResponseWriter, r *http.Request) {
@@ -137,6 +134,7 @@ func (u *User) List(w http.ResponseWriter, r *http.Request) {
 	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
 		log.Println(LogErrDecodeReq)
 		u.ErrorBadRequest(w, err)
+		return
 	}
 
 	out := u.service.List(r.Context(), service.ListIn{
@@ -144,10 +142,8 @@ func (u *User) List(w http.ResponseWriter, r *http.Request) {
 		Offset: req.Offset,
 	})
 
-	// убрать лог
 	if out.Error != nil {
-		log.Println("ОШИБКА:", out.Error.Error())
-		u.OutputJSON(w, ListResponse{Success: false, Error: out.Error})
+		u.OutputJSON(w, ListResponse{Success: false, Error: out.Error.Error()})
 		return
 	}
 

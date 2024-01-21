@@ -41,7 +41,6 @@ func (s *SQLAdapter) BuildSelect(tableName string, condition Condition, fields .
 		}
 	}
 
-	// проверить как будет работать и добавить в другие методы
 	queryRaw = queryRaw.Where(sq.Eq{"deleted_at": sql.NullString{}})
 
 	if condition.NotEqual != nil {
@@ -89,10 +88,6 @@ func (s *SQLAdapter) Create(ctx context.Context, entity tabler.Tabler, ops ...in
 }
 
 func (s *SQLAdapter) Update(ctx context.Context, entity tabler.Tabler, condition Condition, ops ...interface{}) error {
-	// if !condition.ForUpdate {
-	// 	return nil
-	// }
-
 	info := tabler.GetStructInfo(entity, filterByTag("db_ops", "update"))
 
 	m := prepareMap(info)

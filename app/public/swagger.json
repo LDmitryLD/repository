@@ -45,6 +45,7 @@
         "operationId": "DeleteRequest",
         "parameters": [
           {
+            "description": "В нашем случае название таблицы - users",
             "name": "Body",
             "in": "body",
             "schema": {
@@ -245,7 +246,6 @@
           "x-go-name": "Success"
         },
         "users": {
-          "description": "Users   []models.UserDTO `json:\"users\"`",
           "type": "array",
           "items": {
             "$ref": "#/definitions/User"

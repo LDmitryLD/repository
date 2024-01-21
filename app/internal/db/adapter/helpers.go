@@ -18,7 +18,7 @@ type Condition struct {
 
 type Order struct {
 	Field string
-	Asc   bool //поменял с limit
+	Asc   bool
 }
 
 type LimitOffset struct {

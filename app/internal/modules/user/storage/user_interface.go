@@ -14,5 +14,3 @@ type UserRepository interface {
 	Delete(ctx context.Context, tableName string, id int) error
 	List(ctx context.Context, c adapter.Condition) ([]models.User, error)
 }
-
-// 	List(ctx context.Context, c adapter.Condition) ([]models.UserDTO, error)

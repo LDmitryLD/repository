@@ -34,11 +34,6 @@ func (u *UserService) Create(ctx context.Context, in CreateIn) CreateOut {
 
 func (u *UserService) GetByID(ctx context.Context, in GetByIDIn) GetByIDOut {
 	user, err := u.storage.GetByID(ctx, in.UserID)
-	// if err != nil {
-	// 	return GetByIDOut{
-	// 		Error: err,
-	// 	}
-	// }
 
 	return GetByIDOut{
 		User:  user,
@@ -46,7 +41,6 @@ func (u *UserService) GetByID(ctx context.Context, in GetByIDIn) GetByIDOut {
 	}
 }
 
-// возможно стоить добавить в models стрктуру user без поля DeletedAt и оперировать ей
 func (u *UserService) Update(ctx context.Context, in UpdateIn) UpdateOut {
 	dto := models.UserDTO{
 		ID:        in.ID,

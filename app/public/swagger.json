@@ -1,0 +1,366 @@
+{
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "swagger": "2.0",
+  "info": {
+    "description": "Documentation of Repository API.",
+    "title": "Repository.",
+    "version": "1.0.0"
+  },
+  "basePath": "/",
+  "paths": {
+    "/api/users/create": {
+      "post": {
+        "tags": [
+          "repo"
+        ],
+        "summary": "Создание пользователя в таблице.",
+        "operationId": "CreateRequest",
+        "parameters": [
+          {
+            "name": "Body",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/CreateRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/responses/CreateResponse"
+          }
+        }
+      }
+    },
+    "/api/users/delete": {
+      "post": {
+        "tags": [
+          "repo"
+        ],
+        "summary": "Удаление пользователя по ID.",
+        "operationId": "DeleteRequest",
+        "parameters": [
+          {
+            "name": "Body",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/DeleteRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/responses/DeleteResponse"
+          }
+        }
+      }
+    },
+    "/api/users/list": {
+      "post": {
+        "tags": [
+          "repo"
+        ],
+        "summary": "Получение списка пользователей.",
+        "operationId": "ListRequest",
+        "parameters": [
+          {
+            "name": "Body",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/ListRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/responses/ListResponse"
+          }
+        }
+      }
+    },
+    "/api/users/update": {
+      "post": {
+        "tags": [
+          "repo"
+        ],
+        "summary": "Изменение пользователя.",
+        "operationId": "UpdateRequest",
+        "parameters": [
+          {
+            "name": "Body",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/UpdateRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/responses/UpdateResponse"
+          }
+        }
+      }
+    },
+    "/api/users/{id}": {
+      "get": {
+        "tags": [
+          "repo"
+        ],
+        "summary": "Получение пользователя по ID.",
+        "operationId": "GetByIDRequest",
+        "parameters": [
+          {
+            "type": "integer",
+            "format": "int64",
+            "x-go-name": "ID",
+            "name": "id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/responses/GetByIDResponse"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "CreateRequest": {
+      "type": "object",
+      "properties": {
+        "address": {
+          "type": "string",
+          "x-go-name": "Address"
+        },
+        "email": {
+          "type": "string",
+          "x-go-name": "Email"
+        },
+        "first_name": {
+          "type": "string",
+          "x-go-name": "FirstName"
+        },
+        "last_name": {
+          "type": "string",
+          "x-go-name": "LastName"
+        },
+        "username": {
+          "type": "string",
+          "x-go-name": "Username"
+        }
+      },
+      "x-go-package": "projects/LDmitryLD/repository/app/internal/modules/user/controller"
+    },
+    "CreateResponse": {
+      "type": "object",
+      "properties": {
+        "error": {
+          "type": "string",
+          "x-go-name": "Error"
+        },
+        "success": {
+          "type": "boolean",
+          "x-go-name": "Success"
+        }
+      },
+      "x-go-package": "projects/LDmitryLD/repository/app/internal/modules/user/controller"
+    },
+    "DeleteRequest": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "ID"
+        },
+        "table_name": {
+          "type": "string",
+          "x-go-name": "TableName"
+        }
+      },
+      "x-go-package": "projects/LDmitryLD/repository/app/internal/modules/user/controller"
+    },
+    "DeleteResponse": {
+      "type": "object",
+      "properties": {
+        "error": {
+          "type": "string",
+          "x-go-name": "Error"
+        },
+        "success": {
+          "type": "boolean",
+          "x-go-name": "Success"
+        }
+      },
+      "x-go-package": "projects/LDmitryLD/repository/app/internal/modules/user/controller"
+    },
+    "GetByIDResponse": {
+      "type": "object",
+      "properties": {
+        "error": {
+          "type": "string",
+          "x-go-name": "Error"
+        },
+        "success": {
+          "type": "boolean",
+          "x-go-name": "Success"
+        },
+        "user": {
+          "$ref": "#/definitions/User"
+        }
+      },
+      "x-go-package": "projects/LDmitryLD/repository/app/internal/modules/user/controller"
+    },
+    "ListRequest": {
+      "type": "object",
+      "properties": {
+        "limit": {
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "Limit"
+        },
+        "offset": {
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "Offset"
+        }
+      },
+      "x-go-package": "projects/LDmitryLD/repository/app/internal/modules/user/controller"
+    },
+    "ListResponse": {
+      "type": "object",
+      "properties": {
+        "error": {
+          "type": "string",
+          "x-go-name": "Error"
+        },
+        "success": {
+          "type": "boolean",
+          "x-go-name": "Success"
+        },
+        "users": {
+          "description": "Users   []models.UserDTO `json:\"users\"`",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/User"
+          },
+          "x-go-name": "Users"
+        }
+      },
+      "x-go-package": "projects/LDmitryLD/repository/app/internal/modules/user/controller"
+    },
+    "UpdateRequest": {
+      "type": "object",
+      "properties": {
+        "address": {
+          "type": "string",
+          "x-go-name": "Address"
+        },
+        "email": {
+          "type": "string",
+          "x-go-name": "Email"
+        },
+        "first_name": {
+          "type": "string",
+          "x-go-name": "FirstName"
+        },
+        "id": {
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "ID"
+        },
+        "last_name": {
+          "type": "string",
+          "x-go-name": "LastName"
+        },
+        "username": {
+          "type": "string",
+          "x-go-name": "Username"
+        }
+      },
+      "x-go-package": "projects/LDmitryLD/repository/app/internal/modules/user/controller"
+    },
+    "UpdateResponse": {
+      "type": "object",
+      "properties": {
+        "error": {
+          "type": "string",
+          "x-go-name": "Error"
+        },
+        "success": {
+          "type": "boolean",
+          "x-go-name": "Success"
+        }
+      },
+      "x-go-package": "projects/LDmitryLD/repository/app/internal/modules/user/controller"
+    },
+    "User": {
+      "type": "object",
+      "properties": {
+        "Address": {
+          "type": "string"
+        },
+        "Email": {
+          "type": "string"
+        },
+        "FirstName": {
+          "type": "string"
+        },
+        "ID": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "LastName": {
+          "type": "string"
+        },
+        "Username": {
+          "type": "string"
+        }
+      },
+      "x-go-package": "projects/LDmitryLD/repository/app/internal/models"
+    }
+  },
+  "responses": {
+    "CreateResponse": {
+      "description": "",
+      "schema": {
+        "$ref": "#/definitions/CreateResponse"
+      }
+    },
+    "DeleteResponse": {
+      "description": "",
+      "schema": {
+        "$ref": "#/definitions/DeleteResponse"
+      }
+    },
+    "GetByIDResponse": {
+      "description": "",
+      "schema": {
+        "$ref": "#/definitions/GetByIDResponse"
+      }
+    },
+    "ListResponse": {
+      "description": "",
+      "schema": {
+        "$ref": "#/definitions/ListResponse"
+      }
+    },
+    "UpdateResponse": {
+      "description": "",
+      "schema": {
+        "$ref": "#/definitions/UpdateResponse"
+      }
+    }
+  },
+  "securityDefinitions": {
+    "Bearer": {
+      "type": "basic"
+    }
+  }
+}
